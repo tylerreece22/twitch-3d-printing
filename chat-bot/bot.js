@@ -1,15 +1,13 @@
-//thiktzw94v59spmgd7ac7buup45212
-
 const tmi = require('tmi.js');
 
 // Define configuration options
 const opts = {
     identity: {
-        username: 'tylerreece22',
-        password: 'oauth:thiktzw94v59spmgd7ac7buup45212'
+        username: process.env.username,
+        password: process.env.access_token
     },
     channels: [
-        'tylerreece22'
+        process.env.username
     ]
 };
 
