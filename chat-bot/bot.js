@@ -1,13 +1,17 @@
-const tmi = require('tmi.js');
+import tmi from 'tmi.js';
+import sendSqsMessage from "./send-message.js";
+
+const {username, access_token, sqs_queue_url} = process.env
+const minutes = 30
 
 // Define configuration options
 const opts = {
     identity: {
-        username: process.env.username,
-        password: process.env.access_token
+        username,
+        password: access_token
     },
     channels: [
-        process.env.username
+        username
     ]
 };
 
@@ -22,29 +26,43 @@ client.on('connected', onConnectedHandler);
 client.connect();
 
 // Called every time a message comes in
-function onMessageHandler (target, context, msg, self) {
-    if (self) { return; } // Ignore messages from the bot
+function onMessageHandler(target, context, msg, self) {
+    if (self) {
+        return;
+    }
+    client.say(`Timer started! Draw away! T minus ${minutes} minutes`)
+
+    setTimeout(()=>{
+        client.say(target, `Time is up! Lets see what we have!`);
+        process.exit(0)
+    }, minutes * 60000)
 
     // Remove whitespace from chat message
-    const commandName = msg.trim();
+    const chatMessage = msg.trim();
+    console.log(`Received chat message ${chatMessage}`)
 
-    // If the command is known, let's execute it
-    if (commandName === '!dice') {
-        const num = rollDice();
-        client.say(target, `You rolled a ${num}`);
-        console.log(`* Executed ${commandName} command`);
-    } else {
-        console.log(`* Unknown command ${commandName}`);
+    const params = {
+        // Remove DelaySeconds parameter and value for FIFO queues
+        DelaySeconds: 10,
+        MessageAttributes: {},
+        MessageBody: chatMessage,
+        // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
+        // MessageGroupId: "Group1",  // Required for FIFO queues
+        QueueUrl: sqs_queue_url
+    };
+
+    try {
+        sendSqsMessage(params)
+        console.log('Sent message')
+    } catch (e) {
+        console.log(`Failed to send message: ${e.message}`)
     }
-}
 
-// Function called when the "dice" command is issued
-function rollDice () {
-    const sides = 6;
-    return Math.floor(Math.random() * sides) + 1;
+    // if needed leaving here
+    // client.say(target, `You rolled a ${num}`);
 }
 
 // Called every time the bot connects to Twitch chat
-function onConnectedHandler (addr, port) {
+function onConnectedHandler(addr, port) {
     console.log(`* Connected to ${addr}:${port}`);
 }

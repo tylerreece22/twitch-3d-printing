@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "lambdas"
+version = "0.1.0"
+description = "AWS lambdas for twitch chat message processing"
+authors = ["Tyler Reece"]
+license = "MIT"
+readme = "readme.md"
+packages = [{include = "twitch_chat_message_processor"}]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+boto3 = "^1.28.31"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.0"
+pytest-mock = "^3.11.1"
+black = "^23.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
