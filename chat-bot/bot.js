@@ -1,7 +1,12 @@
 import tmi from 'tmi.js';
 import sendSqsMessage from "./send-message.js";
+import 'dotenv/config'
 
-const {username, access_token, sqs_queue_url} = process.env
+const {username, access_token, chat_sqs_queue_url} = process.env
+
+console.log('username', username?.length > 0)
+console.log('access_token', access_token?.length > 0)
+console.log('chat_sqs_queue_url', chat_sqs_queue_url?.length > 0)
 const minutes = 30
 
 // Define configuration options
@@ -30,12 +35,6 @@ function onMessageHandler(target, context, msg, self) {
     if (self) {
         return;
     }
-    client.say(`Timer started! Draw away! T minus ${minutes} minutes`)
-
-    setTimeout(()=>{
-        client.say(target, `Time is up! Lets see what we have!`);
-        process.exit(0)
-    }, minutes * 60000)
 
     // Remove whitespace from chat message
     const chatMessage = msg.trim();
@@ -43,12 +42,12 @@ function onMessageHandler(target, context, msg, self) {
 
     const params = {
         // Remove DelaySeconds parameter and value for FIFO queues
-        DelaySeconds: 10,
+        // DelaySeconds: 10,
         MessageAttributes: {},
         MessageBody: chatMessage,
         // MessageDeduplicationId: "TheWhistler",  // Required for FIFO queues
         // MessageGroupId: "Group1",  // Required for FIFO queues
-        QueueUrl: sqs_queue_url
+        QueueUrl: chat_sqs_queue_url
     };
 
     try {
