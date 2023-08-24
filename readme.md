@@ -4,6 +4,9 @@ The purpose of this project is to solidify some of the Python, Lambda, and AWS s
 Below is a diagram (intentionally overly complex) which shows how I decided to set up the data flow.
 ![TwitchChatTo3DPrintingWorkflow.png](docs%2FTwitchChatTo3DPrintingWorkflow.png)
 
+Here is a more simple approach you could take if you would like to aggregate the code and move off the cloud.
+![TwitchChatTo3DPrintingWorkflowSimple.png](docs%2FTwitchChatTo3DPrintingWorkflowSimple.png)
+
 ## Link to full broadcast
 [Twitch stream](https://www.twitch.tv/videos/1905892673)
 
