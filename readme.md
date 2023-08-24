@@ -4,6 +4,9 @@ The purpose of this project is to solidify some of the Python, Lambda, and AWS s
 Below is a diagram (intentionally overly complex) which shows how I decided to set up the data flow.
 ![TwitchChatTo3DPrintingWorkflow.png](docs%2FTwitchChatTo3DPrintingWorkflow.png)
 
+## Link to full broadcast
+[Twitch stream](https://www.twitch.tv/videos/1905892673)
+
 ## Run bot.js
 This bot will consume your chat and send all messages to the AWS SQS queue. You can add your own filter here if you want but considering the message limit was 1 million messages, I was unconcerned with cost.
 
