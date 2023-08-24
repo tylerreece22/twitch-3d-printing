@@ -6,6 +6,7 @@ from twitch_chat_message_processor.get_gcode_from_message import get_gcode_from_
 sqs_message_url = os.environ["gcode_sqs_message_url"]
 
 def lambda_handler(event: dict, _context):
+    # Pull necessary details from SQS event
     message = event["Records"][0]["body"]
     receiptHandle = event["Records"][0]["receiptHandle"]
 

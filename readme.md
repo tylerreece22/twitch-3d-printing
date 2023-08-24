@@ -26,6 +26,7 @@ Scopes: [chat:edit chat:read]
 ```
 * Export your username and access token `export username=<your username> access_token=<your access token>`
 * Export your chat_sqs_queue_url from AWS `export chat_sqs_queue_url=<your_sqs_url>`
+* Run `poetry install` 
 * Run with `node chat-bot/bot.js` or `sh scripts/chat-bot-runner.sh` and you are connected to your chat :)
 
 ## Run lambdas/twitch_chat_message_processor

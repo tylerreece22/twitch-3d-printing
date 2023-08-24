@@ -100,15 +100,4 @@ def get_gcode_from_message(message: str):
         f"G1 X0 Y230.0 Z30",  # Move to rest position
     ]
 
-    # Not sure if i want string yet
-    # Return G-code commands
-    # gcode_commands = f"G92 E0\n"  # First extruder reset
-    # gcode_commands += (
-    #     f"G1 X{start_x:.4f} Y{start_y:.4f} Z0.3 F3000\n"  # Move to start position
-    # )
-    # gcode_commands += f"G1 E{prepare_extrusion} F300\n"  # Move filament to position
-    # gcode_commands += f"G1 X{end_x:.4f} Y{end_y:.4f} F3000 E{E_value:.4f}\n"  # Draw the line to the end position
-    # gcode_commands += f"G1 E{E_value - retraction:.4f} F2700\n"  # Retract before move
-    # gcode_commands += f"G1 X0 Y230.0 Z30"  # Move to rest position
-
     return gcode_commands
