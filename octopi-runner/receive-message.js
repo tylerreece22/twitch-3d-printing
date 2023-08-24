@@ -3,7 +3,7 @@ import AWS from 'aws-sdk';
 import sendCommand from "./send-command-to-octopi.js";
 // Set the region
 AWS.config.update({region: 'REGION'});
-const {sqs_queue_url} = process.env
+const {gcode_sqs_queue_url} = process.env
 
 // Create an SQS service object
 const sqs = new AWS.SQS({apiVersion: '2012-11-05'});

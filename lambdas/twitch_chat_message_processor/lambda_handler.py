@@ -3,7 +3,7 @@ import boto3
 import os
 
 from twitch_chat_message_processor.get_gcode_from_message import get_gcode_from_message
-sqs_message_url = os.environ["sqs_message_url"]
+sqs_message_url = os.environ["gcode_sqs_message_url"]
 
 def lambda_handler(event: dict, _context):
     message = event["Records"][0]["body"]
